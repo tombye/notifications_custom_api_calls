@@ -1,10 +1,19 @@
+#!/usr/bin/env python3
+
+import os
+import sys
 from datetime import datetime
 from urllib.parse import quote_plus
 
 import requests
 
 
-def send_inbound_sms(message):
+def send_inbound_sms():
+    if len(sys.argv) == 1:
+        print('No arguments passed')
+        return
+
+    message = sys.argv[1]
     user_number = os.environ["TEST_NUMBER"]
     service_inbound_number = os.environ["FUNCTIONAL_TESTS_SERVICE_INBOUND_NUMBER"]
     notify_api_url = os.environ["FUNCTIONAL_TESTS_API_HOST"]
@@ -30,3 +39,6 @@ def send_inbound_sms(message):
     print(response)
 
     print(response.raise_for_status())
+
+
+send_inbound_sms()
